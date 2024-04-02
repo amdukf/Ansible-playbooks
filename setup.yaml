@@ -1,0 +1,29 @@
+---
+- name: Deploy Root Login service
+  hosts: localhost
+  become: yes
+  
+  tasks:
+    - name: Copy systemd service file
+      copy:
+        src: /root/playbooks/rootlogin_alert.service
+        dest: /etc/systemd/system/memory_alert.service
+      notify: 
+        - Reload systemd
+  
+    - name: Ensure script is executable
+      file:
+        path: /root/scripts/ssh-login-monitor.sh
+        mode: +x
+
+    - name: Start and enable Root Login service
+      systemd:
+        name: rootlogin_alert
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Reload systemd
+      systemd:
+        name: rootlogin_alert
+        state: reloaded
