@@ -7,7 +7,7 @@
     - name: Copy systemd service file
       copy:
         src: /root/playbooks/rootlogin_alert.service
-        dest: /etc/systemd/system/memory_alert.service
+        dest: /etc/systemd/system/rootlogin_alert.service
       notify: 
         - Reload systemd
   
