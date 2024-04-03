@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/root/scripts/ssh-login-monitor.sh
+ExecStart=/opt/rootlogin_alert/ssh-login-monitor.sh
 User=root
 Group=root
 Restart=always

@@ -1,30 +1,30 @@
 ---
 - name: Deploy Root Login service
-  hosts: localhost
+  hosts: all
   become: true
 
   tasks:
     - name: Copy systemd service file
       copy:
-        src: /root/playbooks/rootlogin_alert.service
+        src: rootlogin_alert.service
         dest: /etc/systemd/system/rootlogin_alert.service
-        mode: 644
-      notify: 
-        - Reload systemd
+        mode: "644"
 
-    - name: Ensure script is executable
+    - name: Ensure /opt/rootlogin_alert directory exist
       file:
-        path: /root/scripts/ssh-login-monitor.sh
-        mode: +x
+        name: /opt/rootlogin_alert
+        state: directory
+        mode: "755"
+
+    - name: Copy main script to remote server
+      copy:
+        src: scripts/ssh-login-monitor.sh
+        dest: /opt/rootlogin_alert/ssh-login-monitor.sh
+        mode: "644"
 
     - name: Start and enable Root Login service
       systemd:
         name: rootlogin_alert
         state: started
         enabled: true
-
-  handlers:
-    - name: Reload systemd
-      systemd:
-        name: rootlogin_alert
-        state: reloaded
+        daemon_reload: true
