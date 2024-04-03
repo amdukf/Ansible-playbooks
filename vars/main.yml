@@ -1,2 +1,2 @@
-telegram_api_token: "5047561324:AAES3Ph5o0nR_SKDV6rHDHPY8Q2E-LNETwQ"
-telegram_chat_id: 1947198656
+telegram_api_token: "" # Telegram bot token
+telegram_chat_id: # Telegram chat id
