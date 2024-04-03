@@ -2,7 +2,8 @@
 - name: Deploy Root Login service
   hosts: all
   become: true
-
+  vars_files:
+    - "vars/main.yml"
   tasks:
     - name: Copy systemd service file
       copy:
@@ -17,8 +18,8 @@
         mode: "755"
 
     - name: Copy main script to remote server
-      copy:
-        src: scripts/ssh-login-monitor.sh
+      template:
+        src: scripts/ssh-login-monitor.sh.j2
         dest: /opt/rootlogin_alert/ssh-login-monitor.sh
         mode: "755"
 
