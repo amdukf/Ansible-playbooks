@@ -20,7 +20,7 @@
       copy:
         src: scripts/ssh-login-monitor.sh
         dest: /opt/rootlogin_alert/ssh-login-monitor.sh
-        mode: "644"
+        mode: "755"
 
     - name: Start and enable Root Login service
       systemd:
